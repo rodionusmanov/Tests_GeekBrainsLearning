@@ -39,4 +39,34 @@ class EmailValidatorTest {
     fun emailValidator_NullEmail_ReturnsFalse() {
         assertFalse(EmailValidator.isValidEmail(null))
     }
+
+    @Test
+    fun emailValidator_NonEnglishSymbolsName_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("имя@email.com"))
+    }
+
+    @Test
+    fun emailValidator_NonEnglishSymbolsEmail_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("name@почта.com"))
+    }
+
+    @Test
+    fun emailValidator_NonEnglishSymbolsDomain_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("name@email.рф"))
+    }
+
+    @Test
+    fun emailValidator_InvalidSymbolsInName_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("na,me@email.com"))
+    }
+
+    @Test
+    fun emailValidator_InvalidSymbolsInEmail_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("name@em+ail.com"))
+    }
+
+    @Test
+    fun emailValidator_InvalidSymbolsInDomain_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("name@email.co_m"))
+    }
 }
