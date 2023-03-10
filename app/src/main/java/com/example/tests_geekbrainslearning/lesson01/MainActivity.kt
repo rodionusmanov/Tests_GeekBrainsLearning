@@ -1,8 +1,9 @@
-package com.example.tests_geekbrainslearning
+package com.example.tests_geekbrainslearning.lesson01
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.tests_geekbrainslearning.R
 import com.example.tests_geekbrainslearning.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

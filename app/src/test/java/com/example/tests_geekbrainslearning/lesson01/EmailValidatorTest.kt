@@ -1,5 +1,6 @@
-package com.example.tests_geekbrainslearning
+package com.example.tests_geekbrainslearning.lesson01
 
+import com.example.tests_geekbrainslearning.lesson01.EmailValidator
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test

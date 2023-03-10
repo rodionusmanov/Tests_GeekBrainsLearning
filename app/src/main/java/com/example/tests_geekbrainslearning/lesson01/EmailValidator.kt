@@ -1,4 +1,4 @@
-package com.example.tests_geekbrainslearning
+package com.example.tests_geekbrainslearning.lesson01
 
 import android.text.Editable
 import android.text.TextWatcher
