@@ -23,7 +23,7 @@ import com.example.tests_geekbrainslearning.R
 @Config(sdk = [Build.VERSION_CODES.R])
 class DetailsActivityTest {
 
-    lateinit var scenario: ActivityScenario<DetailsActivity>
+    private lateinit var scenario: ActivityScenario<DetailsActivity>
 
     @Before
     fun setup() {
@@ -107,6 +107,7 @@ class DetailsActivityTest {
         val intent = DetailsActivity.getIntent(context, 0)
         assertNotNull(intent)
     }
+
     @Test
     fun activityCreateIntent_HasExtras() {
         val context: Context = ApplicationProvider.getApplicationContext()
@@ -114,6 +115,7 @@ class DetailsActivityTest {
         val bundle = intent.extras
         assertNotNull(bundle)
     }
+
     @Test
     fun activityCreateIntent_HasCount() {
         val count = 42

@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
     private var totalCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        presenter.onAttach(lifecycle.currentState)
         super.onCreate(savedInstanceState)
         binding = ActivityMainRobolectricBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -77,7 +78,7 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
 
     private fun createRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(MainActivity.BASE_URL)
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -106,6 +107,15 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
                 progressBar.visibility = View.GONE
             }
         }
+    }
+
+    override fun getLyfecycle(lifecycleState: String) {
+        Toast.makeText(this, lifecycleState, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onAttach(lifecycle.currentState)
     }
 
     companion object {
