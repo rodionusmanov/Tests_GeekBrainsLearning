@@ -1,11 +1,10 @@
 package com.example.tests_geekbrainslearning.lesson03.presenter.search
 
 import androidx.lifecycle.Lifecycle
+import com.example.tests_geekbrainslearning.lesson03.presenter.RepositoryContract
 import com.example.tests_geekbrainslearning.lesson03.repository.RepositoryCallback
-import com.example.tests_geekbrainslearning.lesson03.repository.RepositoryContract
 import com.example.tests_geekbrainslearning.lesson03.view.search.ViewSearchContract
 import com.geekbrains.tests.model.SearchResponse
-import com.geekbrains.tests.repository.GitHubRepository
 import retrofit2.Response
 
 internal class SearchPresenter internal constructor(

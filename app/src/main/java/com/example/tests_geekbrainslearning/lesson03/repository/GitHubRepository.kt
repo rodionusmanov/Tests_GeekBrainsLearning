@@ -1,7 +1,7 @@
 package com.geekbrains.tests.repository
 
 import com.example.tests_geekbrainslearning.lesson03.repository.RepositoryCallback
-import com.example.tests_geekbrainslearning.lesson03.repository.RepositoryContract
+import com.example.tests_geekbrainslearning.lesson03.presenter.RepositoryContract
 import com.geekbrains.tests.model.SearchResponse
 import retrofit2.Call
 import retrofit2.Callback

@@ -12,7 +12,7 @@ import com.example.tests_geekbrainslearning.databinding.ActivityMainRobolectricB
 import com.example.tests_geekbrainslearning.lesson03.presenter.search.PresenterSearchContract
 import com.example.tests_geekbrainslearning.lesson03.presenter.search.SearchPresenter
 import com.example.tests_geekbrainslearning.lesson03.repository.FakeGitHubRepository
-import com.example.tests_geekbrainslearning.lesson03.repository.RepositoryContract
+import com.example.tests_geekbrainslearning.lesson03.presenter.RepositoryContract
 import com.example.tests_geekbrainslearning.lesson03.view.details.DetailsActivity
 import com.geekbrains.tests.model.SearchResult
 import com.geekbrains.tests.repository.GitHubApi
