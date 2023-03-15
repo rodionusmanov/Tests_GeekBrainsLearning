@@ -85,4 +85,24 @@ class BehaviorTest {
             uiDevice.wait(Until.findObject(By.res(packageName, "totalCountTextView")), TIMEOUT)
         Assert.assertEquals(changedText.text, "Number of results: 0")
     }
+
+    @Test
+    fun test_OpenDetailsScreenAndCheckCorrectCount() {
+
+        val editText = uiDevice.findObject(By.res(packageName, "searchEditText"))
+        editText.text = "UiAutomator"
+        val totalCount = uiDevice.findObject(By.res(packageName, "searchTotalCountButton"))
+        totalCount.click()
+        val changedTextActivityMain =
+            uiDevice.wait(
+                Until.findObject(By.res(packageName, "totalCountTextView")),
+                TIMEOUT
+            )
+        val toDetails = uiDevice.findObject(By.res(packageName, "toDetailsActivityButton"))
+        toDetails.click()
+        uiDevice.findObject(By.res(packageName, "totalCountTextView"))
+        val changedTextDetailsActivity =
+            uiDevice.wait(Until.findObject(By.res(packageName, "totalCountTextView")), TIMEOUT)
+        Assert.assertEquals(changedTextDetailsActivity.text, "Number of results: 774")
+    }
 }
