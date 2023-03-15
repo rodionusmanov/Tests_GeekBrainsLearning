@@ -2,6 +2,7 @@ package com.example.tests_geekbrainslearning.automator_lesson05
 
 import android.content.Context
 import android.content.Intent
+import android.view.View
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
@@ -104,5 +105,131 @@ class BehaviorTest {
         val changedTextDetailsActivity =
             uiDevice.wait(Until.findObject(By.res(packageName, "totalCountTextView")), TIMEOUT)
         Assert.assertEquals(changedTextDetailsActivity.text, "Number of results: 774")
+    }
+
+    @Test
+    fun test_EditTextBlankSearch_NullTextView() {
+
+        val editText = uiDevice.findObject(By.res(packageName, "searchEditText"))
+        editText.text = ""
+        val totalCount = uiDevice.findObject(By.res(packageName, "searchTotalCountButton"))
+        totalCount.click()
+        Assert.assertNull(
+            uiDevice.wait(
+                Until.findObject(By.res(packageName, "totalCountTextView")),
+                TIMEOUT
+            )
+        )
+    }
+
+    @Test
+    fun test_EditTextNotBlankSearch_NotNullTextView() {
+
+        val editText = uiDevice.findObject(By.res(packageName, "searchEditText"))
+        editText.text = "any search"
+        val totalCount = uiDevice.findObject(By.res(packageName, "searchTotalCountButton"))
+        totalCount.click()
+        Assert.assertNotNull(
+            uiDevice.wait(
+                Until.findObject(By.res(packageName, "totalCountTextView")),
+                TIMEOUT
+            )
+        )
+    }
+
+    @Test
+    fun test_IncrementClickPositiveTest() {
+
+        val editText = uiDevice.findObject(By.res(packageName, "searchEditText"))
+        editText.text = "algol"
+        val totalCount = uiDevice.findObject(By.res(packageName, "searchTotalCountButton"))
+        totalCount.click()
+        val changedTextActivityMain =
+            uiDevice.wait(
+                Until.findObject(By.res(packageName, "totalCountTextView")),
+                TIMEOUT
+            )
+        val toDetails =
+            uiDevice.findObject(By.res(packageName, "toDetailsActivityButton"))
+        toDetails.click()
+        uiDevice.findObject(By.res(packageName, "incrementButton"))
+        val incrementButton =
+            uiDevice.wait(Until.findObject(By.res(packageName, "incrementButton")), TIMEOUT)
+        incrementButton.click()
+        val changedTextDetailsActivity =
+            uiDevice.wait(Until.findObject(By.res(packageName, "totalCountTextView")), TIMEOUT)
+        Assert.assertEquals(changedTextDetailsActivity.text, "Number of results: 3631")
+    }
+
+    @Test
+    fun test_IncrementClickNegativeTest() {
+
+        val editText = uiDevice.findObject(By.res(packageName, "searchEditText"))
+        editText.text = "algol"
+        val totalCount = uiDevice.findObject(By.res(packageName, "searchTotalCountButton"))
+        totalCount.click()
+        val changedTextActivityMain =
+            uiDevice.wait(
+                Until.findObject(By.res(packageName, "totalCountTextView")),
+                TIMEOUT
+            )
+        val toDetails =
+            uiDevice.findObject(By.res(packageName, "toDetailsActivityButton"))
+        toDetails.click()
+        uiDevice.findObject(By.res(packageName, "incrementButton"))
+        val incrementButton =
+            uiDevice.wait(Until.findObject(By.res(packageName, "incrementButton")), TIMEOUT)
+        incrementButton.click()
+        val changedTextDetailsActivity =
+            uiDevice.wait(Until.findObject(By.res(packageName, "totalCountTextView")), TIMEOUT)
+        Assert.assertNotEquals(changedTextDetailsActivity.text, "Number of results: 3630")
+    }
+
+    @Test
+    fun test_DecrementClickPositiveTest() {
+
+        val editText = uiDevice.findObject(By.res(packageName, "searchEditText"))
+        editText.text = "algol"
+        val totalCount = uiDevice.findObject(By.res(packageName, "searchTotalCountButton"))
+        totalCount.click()
+        val changedTextActivityMain =
+            uiDevice.wait(
+                Until.findObject(By.res(packageName, "totalCountTextView")),
+                TIMEOUT
+            )
+        val toDetails =
+            uiDevice.findObject(By.res(packageName, "toDetailsActivityButton"))
+        toDetails.click()
+        uiDevice.findObject(By.res(packageName, "decrementButton"))
+        val incrementButton =
+            uiDevice.wait(Until.findObject(By.res(packageName, "decrementButton")), TIMEOUT)
+        incrementButton.click()
+        val changedTextDetailsActivity =
+            uiDevice.wait(Until.findObject(By.res(packageName, "totalCountTextView")), TIMEOUT)
+        Assert.assertEquals(changedTextDetailsActivity.text, "Number of results: 3629")
+    }
+
+    @Test
+    fun test_DecrementClickNegativeTest() {
+
+        val editText = uiDevice.findObject(By.res(packageName, "searchEditText"))
+        editText.text = "algol"
+        val totalCount = uiDevice.findObject(By.res(packageName, "searchTotalCountButton"))
+        totalCount.click()
+        val changedTextActivityMain =
+            uiDevice.wait(
+                Until.findObject(By.res(packageName, "totalCountTextView")),
+                TIMEOUT
+            )
+        val toDetails =
+            uiDevice.findObject(By.res(packageName, "toDetailsActivityButton"))
+        toDetails.click()
+        uiDevice.findObject(By.res(packageName, "decrementButton"))
+        val incrementButton =
+            uiDevice.wait(Until.findObject(By.res(packageName, "decrementButton")), TIMEOUT)
+        incrementButton.click()
+        val changedTextDetailsActivity =
+            uiDevice.wait(Until.findObject(By.res(packageName, "totalCountTextView")), TIMEOUT)
+        Assert.assertNotEquals(changedTextDetailsActivity.text, "Number of results: 3630")
     }
 }
