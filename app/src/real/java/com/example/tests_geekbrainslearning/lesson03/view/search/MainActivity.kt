@@ -43,10 +43,21 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
                     DetailsActivity.getIntent(this@MainActivity, totalCount)
                 )
             }
+            searchTotalCountButton.setOnClickListener {
+                val query = binding.searchEditText.text.toString()
+                if (query.isNotBlank()) {
+                    presenter.searchGitHub(query)
+                } else {
+                    Toast.makeText(
+                        this@MainActivity,
+                        getString(R.string.enter_search_word),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
             setQueryListener()
             setRecyclerView()
         }
-
     }
 
     private fun setRecyclerView() {

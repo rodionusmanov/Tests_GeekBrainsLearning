@@ -47,12 +47,27 @@ class BehaviorTest {
     }
 
     @Test
-    fun test_SearchIsPositive() {
+    fun test_Espresso_SearchIsPositive() {
 
         val editText = uiDevice.findObject(By.res(packageName, "searchEditText"))
         editText.text = "UiAutomator"
         Espresso.onView(ViewMatchers.withId(R.id.searchEditText))
             .perform(ViewActions.pressImeActionButton())
+        val changedText =
+            uiDevice.wait(
+                Until.findObject(By.res(packageName, "totalCountTextView")),
+                TIMEOUT
+            )
+        Assert.assertEquals(changedText.text.toString(), "Number of results: 774")
+    }
+
+    @Test
+    fun test_SearchIsPositive() {
+
+        val editText = uiDevice.findObject(By.res(packageName, "searchEditText"))
+        editText.text = "UiAutomator"
+        val totalCount = uiDevice.findObject(By.res(packageName, "searchTotalCountButton"))
+        totalCount.click()
         val changedText =
             uiDevice.wait(
                 Until.findObject(By.res(packageName, "totalCountTextView")),

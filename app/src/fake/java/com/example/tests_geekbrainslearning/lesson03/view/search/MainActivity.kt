@@ -6,17 +6,14 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.tests_geekbrainslearning.BuildConfig
 import com.example.tests_geekbrainslearning.R
 import com.example.tests_geekbrainslearning.databinding.ActivityMainRobolectricBinding
+import com.example.tests_geekbrainslearning.lesson03.presenter.RepositoryContract
 import com.example.tests_geekbrainslearning.lesson03.presenter.search.PresenterSearchContract
 import com.example.tests_geekbrainslearning.lesson03.presenter.search.SearchPresenter
 import com.example.tests_geekbrainslearning.lesson03.repository.FakeGitHubRepository
-import com.example.tests_geekbrainslearning.lesson03.presenter.RepositoryContract
 import com.example.tests_geekbrainslearning.lesson03.view.details.DetailsActivity
 import com.geekbrains.tests.model.SearchResult
-import com.geekbrains.tests.repository.GitHubApi
-import com.geekbrains.tests.repository.GitHubRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
@@ -43,10 +40,21 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
                     DetailsActivity.getIntent(this@MainActivity, totalCount)
                 )
             }
+            searchTotalCountButton.setOnClickListener {
+                val query = binding.searchEditText.text.toString()
+                if (query.isNotBlank()) {
+                    presenter.searchGitHub(query)
+                } else {
+                    Toast.makeText(
+                        this@MainActivity,
+                        getString(R.string.enter_search_word),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
             setQueryListener()
             setRecyclerView()
         }
-
     }
 
     private fun setRecyclerView() {
