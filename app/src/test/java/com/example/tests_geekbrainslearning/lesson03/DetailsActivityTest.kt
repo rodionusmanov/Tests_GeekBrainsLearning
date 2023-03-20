@@ -9,6 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.tests_geekbrainslearning.*
 import com.example.tests_geekbrainslearning.lesson03.view.details.DetailsActivity
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -17,7 +18,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
-import com.example.tests_geekbrainslearning.R
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.R])
@@ -56,7 +56,7 @@ class DetailsActivityTest {
         scenario.onActivity {
             val totalCountTextView =
                 it.findViewById<TextView>(R.id.totalCountTextView)
-            assertEquals("Number of results: 0", totalCountTextView.text)
+            assertEquals(TEST_NUMBER_OF_RESULTS_ZERO, totalCountTextView.text)
         }
     }
 
@@ -86,7 +86,7 @@ class DetailsActivityTest {
             val totalCountTextView =
                 it.findViewById<TextView>(R.id.totalCountTextView)
             incrementButton.performClick()
-            assertEquals("Number of results: 1", totalCountTextView.text)
+            assertEquals(TEST_NUMBER_OF_RESULTS_PLUS_1, totalCountTextView.text)
         }
     }
 
@@ -97,7 +97,7 @@ class DetailsActivityTest {
             val totalCountTextView =
                 it.findViewById<TextView>(R.id.totalCountTextView)
             decrementButton.performClick()
-            assertEquals("Number of results: -1", totalCountTextView.text)
+            assertEquals(TEST_NUMBER_OF_RESULTS_MINUS_1, totalCountTextView.text)
         }
     }
 
@@ -118,11 +118,10 @@ class DetailsActivityTest {
 
     @Test
     fun activityCreateIntent_HasCount() {
-        val count = 42
         val context: Context = ApplicationProvider.getApplicationContext()
-        val intent = DetailsActivity.getIntent(context, count)
+        val intent = DetailsActivity.getIntent(context, TEST_OFFLINE_NUMBER)
         val bundle = intent.extras
-        assertEquals(count, bundle?.getInt(DetailsActivity.TOTAL_COUNT_EXTRA, 0))
+        assertEquals(TEST_OFFLINE_NUMBER, bundle?.getInt(DetailsActivity.TOTAL_COUNT_EXTRA, 0))
     }
 
     @After

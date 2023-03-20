@@ -1,6 +1,7 @@
 package com.example.tests_geekbrainslearning.lesson03
 
 import androidx.lifecycle.Lifecycle
+import com.example.tests_geekbrainslearning.TEST_ONE_NUMBER
 import com.example.tests_geekbrainslearning.lesson03.presenter.search.PresenterSearchContract
 import com.example.tests_geekbrainslearning.lesson03.presenter.search.SearchPresenter
 import com.example.tests_geekbrainslearning.lesson03.view.search.ViewSearchContract
@@ -31,12 +32,12 @@ class SearchPresenterTest {
     @Test
     fun presenter_OnAttachTest() {
         presenter.onAttach(Lifecycle.State.INITIALIZED)
-        Mockito.verify(viewContract, times(1)).getLyfecycle("INITIALIZED")
+        Mockito.verify(viewContract, times(TEST_ONE_NUMBER)).getLyfecycle("INITIALIZED")
     }
 
     @Test
     fun presenter_OnDetachTest() {
         presenter.onDetach(Lifecycle.State.DESTROYED)
-        Mockito.verify(viewContract, times(1)).getLyfecycle("DESTROYED")
+        Mockito.verify(viewContract, times(TEST_ONE_NUMBER)).getLyfecycle("DESTROYED")
     }
 }

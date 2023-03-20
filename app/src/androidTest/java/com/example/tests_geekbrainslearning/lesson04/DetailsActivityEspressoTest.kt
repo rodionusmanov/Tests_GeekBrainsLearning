@@ -16,6 +16,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import com.example.tests_geekbrainslearning.R
 import org.junit.After
+import com.example.tests_geekbrainslearning.TEST_NUMBER_OF_RESULTS_ZERO
+import com.example.tests_geekbrainslearning.TEST_NUMBER_OF_RESULTS_PLUS_1
+import com.example.tests_geekbrainslearning.TEST_NUMBER_OF_RESULTS_MINUS_1
 
 @RunWith(AndroidJUnit4::class)
 class DetailsActivityEspressoTest {
@@ -50,7 +53,7 @@ class DetailsActivityEspressoTest {
 
     @Test
     fun activityTextView_HasText() {
-        val assertion: ViewAssertion = matches(withText("Number of results: 0"))
+        val assertion: ViewAssertion = matches(withText(TEST_NUMBER_OF_RESULTS_ZERO))
         onView(withId(R.id.totalCountTextView)).check(assertion)
     }
 
@@ -75,13 +78,13 @@ class DetailsActivityEspressoTest {
     @Test
     fun activityButtonIncrement_IsWorking() {
         onView(withId(R.id.incrementButton)).perform(click())
-        onView(withId(R.id.totalCountTextView)).check(matches(withText("Number of results: 1")))
+        onView(withId(R.id.totalCountTextView)).check(matches(withText(TEST_NUMBER_OF_RESULTS_PLUS_1)))
     }
 
     @Test
     fun activityButtonDecrement_IsWorking() {
         onView(withId(R.id.decrementButton)).perform(click())
-        onView(withId(R.id.totalCountTextView)).check(matches(withText("Number of results: -1")))
+        onView(withId(R.id.totalCountTextView)).check(matches(withText(TEST_NUMBER_OF_RESULTS_MINUS_1)))
     }
 
     @After

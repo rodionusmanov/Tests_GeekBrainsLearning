@@ -2,7 +2,6 @@ package com.example.tests_geekbrainslearning.automator_lesson05
 
 import android.content.Context
 import android.content.Intent
-import android.view.View
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
@@ -13,11 +12,12 @@ import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
+import com.example.tests_geekbrainslearning.R
+import com.example.tests_geekbrainslearning.TEST_NUMBER_OF_RESULTS_ZERO
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import com.example.tests_geekbrainslearning.R
 
 @RunWith(AndroidJUnit4::class)
 @SdkSuppress(minSdkVersion = 18)
@@ -84,7 +84,7 @@ class BehaviorTest {
         toDetails.click()
         val changedText =
             uiDevice.wait(Until.findObject(By.res(packageName, "totalCountTextView")), TIMEOUT)
-        Assert.assertEquals(changedText.text, "Number of results: 0")
+        Assert.assertEquals(changedText.text, TEST_NUMBER_OF_RESULTS_ZERO)
     }
 
     @Test
