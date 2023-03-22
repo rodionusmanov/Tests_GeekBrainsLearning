@@ -6,13 +6,11 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.tests_geekbrainslearning.BuildConfig
 import com.example.tests_geekbrainslearning.R
 import com.example.tests_geekbrainslearning.databinding.ActivityMainRobolectricBinding
+import com.example.tests_geekbrainslearning.lesson03.presenter.RepositoryContract
 import com.example.tests_geekbrainslearning.lesson03.presenter.search.PresenterSearchContract
 import com.example.tests_geekbrainslearning.lesson03.presenter.search.SearchPresenter
-import com.example.tests_geekbrainslearning.lesson03.repository.FakeGitHubRepository
-import com.example.tests_geekbrainslearning.lesson03.presenter.RepositoryContract
 import com.example.tests_geekbrainslearning.lesson03.view.details.DetailsActivity
 import com.geekbrains.tests.model.SearchResult
 import com.geekbrains.tests.repository.GitHubApi
@@ -106,8 +104,7 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
             visibility = View.VISIBLE
             text =
                 String.format(
-                    Locale.getDefault(), getString(R.string.results_count),
-                    totalCount
+                    Locale.getDefault(), getString(R.string.results_count), totalCount
                 )
         }
         this.totalCount = totalCount

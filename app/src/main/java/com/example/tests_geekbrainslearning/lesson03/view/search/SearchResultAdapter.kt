@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tests_geekbrainslearning.R
 import com.geekbrains.tests.model.SearchResult
@@ -41,6 +42,10 @@ internal class SearchResultAdapter : RecyclerView.Adapter<SearchResultAdapter.Se
 
         fun bind(searchResult: SearchResult) {
             itemView.findViewById<TextView>(R.id.repositoryName).text = searchResult.fullName
+            itemView.findViewById<TextView>(R.id.repositoryName).setOnClickListener {
+                Toast.makeText(itemView.context, searchResult.fullName,
+                    Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
