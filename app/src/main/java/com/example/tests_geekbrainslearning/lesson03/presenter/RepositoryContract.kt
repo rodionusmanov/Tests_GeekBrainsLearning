@@ -4,7 +4,7 @@ import com.example.tests_geekbrainslearning.lesson03.repository.RepositoryCallba
 import com.geekbrains.tests.model.SearchResponse
 import io.reactivex.rxjava3.core.Observable
 
-internal interface RepositoryContract {
+interface RepositoryContract {
 
     fun searchGithub(
         query: String,

@@ -6,12 +6,15 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.tests_geekbrainslearning.R
 import com.example.tests_geekbrainslearning.databinding.ActivityMainRobolectricBinding
 import com.example.tests_geekbrainslearning.lesson03.presenter.RepositoryContract
 import com.example.tests_geekbrainslearning.lesson03.presenter.search.PresenterSearchContract
 import com.example.tests_geekbrainslearning.lesson03.presenter.search.SearchPresenter
 import com.example.tests_geekbrainslearning.lesson03.view.details.DetailsActivity
+import com.example.tests_geekbrainslearning.lesson03.viewModel.ScreenState
+import com.example.tests_geekbrainslearning.lesson03.viewModel.SearchViewModel
 import com.geekbrains.tests.model.SearchResult
 import com.geekbrains.tests.repository.GitHubApi
 import com.geekbrains.tests.repository.GitHubRepository
@@ -24,15 +27,18 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
 
     private val adapter = SearchResultAdapter()
     private lateinit var binding: ActivityMainRobolectricBinding
-    private val presenter: PresenterSearchContract = SearchPresenter(this, createRepository())
+    private val viewModel: SearchViewModel by lazy {
+        ViewModelProvider(this).get(SearchViewModel::class.java)
+    }
+
     private var totalCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        presenter.onAttach(lifecycle.currentState)
         super.onCreate(savedInstanceState)
         binding = ActivityMainRobolectricBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUI()
+        viewModel.subscribeToLiveData().observe(this) { onStateChange(it) }
     }
 
     private fun setUI() {
@@ -45,7 +51,7 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
             searchTotalCountButton.setOnClickListener {
                 val query = binding.searchEditText.text.toString()
                 if (query.isNotBlank()) {
-                    presenter.searchGitHub(query)
+                    viewModel.searchGitHub(query)
                 } else {
                     Toast.makeText(
                         this@MainActivity,
@@ -71,7 +77,7 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val query = binding.searchEditText.text.toString()
                 if (query.isNotBlank()) {
-                    presenter.searchGitHub(query)
+                    viewModel.searchGitHub(query)
                     return@OnEditorActionListener true
                 } else {
                     Toast.makeText(
@@ -138,10 +144,38 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter.onAttach(lifecycle.currentState)
     }
 
     companion object {
         const val BASE_URL = "https://api.github.com"
     }
+
+    private fun onStateChange(screenState: ScreenState) {
+        when (screenState) {
+            is ScreenState.Working -> {
+                val searchResponse = screenState.searchResponse
+                val totalCount = searchResponse.totalCount
+                binding.progressBar.visibility = View.GONE
+                with(binding.totalCountTextView) {
+                    visibility = View.VISIBLE
+                    text =
+                        String.format(
+                            Locale.getDefault(),
+                            getString(R.string.results_count),
+                            totalCount
+                        )
+                }
+                this.totalCount = totalCount!!
+                adapter.updateResults(searchResponse.searchResults!!)
+            }
+            is ScreenState.Loading -> {
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            is ScreenState.Error -> {
+                binding.progressBar.visibility = View.GONE
+                Toast.makeText(this, screenState.error.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 }
