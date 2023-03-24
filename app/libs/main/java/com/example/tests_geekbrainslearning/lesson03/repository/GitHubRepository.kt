@@ -33,4 +33,10 @@ internal class GitHubRepository(private val gitHubApi: GitHubApi) : RepositoryCo
             }
         })
     }
+
+    override fun searchGithub(query: String): Observable<SearchResponse> {
+        return gitHubApi.searchGithubRx(query)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 }
