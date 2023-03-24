@@ -3,6 +3,9 @@ package com.geekbrains.tests.repository
 import com.example.tests_geekbrainslearning.lesson03.repository.RepositoryCallback
 import com.example.tests_geekbrainslearning.lesson03.presenter.RepositoryContract
 import com.geekbrains.tests.model.SearchResponse
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,5 +35,11 @@ internal class GitHubRepository(private val gitHubApi: GitHubApi) : RepositoryCo
                 callback.handleGitHubError()
             }
         })
+    }
+
+    override fun searchGithub(query: String): Observable<SearchResponse> {
+        return gitHubApi.searchGithubRx(query)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 }
